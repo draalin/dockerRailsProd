@@ -1,0 +1,47 @@
+version: '3'
+volumes:
+  postgres_data: {}
+
+
+services:
+  # Rails (App)
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/app/app.DockerFile 
+    depends_on:
+      - db
+      - redis
+    # ports:
+    #   - "3000:3000"
+    env_file:
+      - '.env'
+
+  # Postgres (Database)
+  db:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - '.env'
+
+  # nginx (Proxy)
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/web/web.DockerFile 
+    depends_on:
+      - app
+      - redis
+    ports:
+      - 80:80
+    env_file:
+      - '.env'
+
+  #Redis (Cache)
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    env_file:
+      - '.env'
