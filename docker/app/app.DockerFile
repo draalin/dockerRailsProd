@@ -17,8 +17,8 @@ WORKDIR $RAILS_ROOT
 ENV RAILS_ENV='production'
 ENV RACK_ENV='production'
 
-# RUN mkdir tmp
-# RUN mkdir tmp/pids
+RUN mkdir tmp
+RUN mkdir tmp/pids
 
 # Adding gems
 RUN gem install bundler
