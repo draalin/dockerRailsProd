@@ -32,7 +32,7 @@ Open with browser: `http://localhost/`
 ## Tearing down
 
 ```
-docker-compose down && /
+docker-compose down && \
 docker rmi $(docker images |grep 'dockerrailsprod_app') -f
 ```
 
